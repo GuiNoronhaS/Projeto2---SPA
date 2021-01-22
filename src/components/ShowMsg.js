@@ -1,3 +1,6 @@
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button} from "@material-ui/core";
+
+
 function ShowMsg(props) {
     return (
         <Dialog
@@ -15,10 +18,10 @@ function ShowMsg(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>
+          <Button onClick={props.reject}>
                 Rejeitar
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={props.confirm} autoFocus>
                 Confirmar
           </Button>
         </DialogActions>

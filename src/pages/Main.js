@@ -2,7 +2,7 @@
 import { Modal, Box, Card, InputAdornment, Typography, Button } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useState } from 'react';
-import CardMaker from '../components/CardMaker.js';
+import ProcessManager from '../components/ProcessManager.js';
 import TextFieldGenerator from '../components/TextFieldGenerator.js'
 
 const Main = () => {
@@ -51,9 +51,16 @@ const Main = () => {
                 aria-labelledby="Modal para Novos Processos"
                 aria-describedby="Modal feito para criar novos processos"
             >
-                <Box id="modalCard">
-                    <CardMaker 
-                    closeButton={handleModal}/>
+                <Box id="modalCard"
+                    marginTop="50px"
+                    margin="auto"
+                    minWidth={740}
+                    height="fit-content"
+                    width="fit-content"
+                    >
+                    <ProcessManager 
+                    closeButton={handleModal}
+                    acao={"Criar Novo Processo"}/>
                 </Box>
             </Modal>
         </Box>
