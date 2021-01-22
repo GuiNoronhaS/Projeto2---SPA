@@ -1,4 +1,6 @@
-import { Box, Button, Card, Grid } from "@material-ui/core";
+import { Box, Button, Card, Grid, Typography, IconButton } from "@material-ui/core";
+import { Close } from '@material-ui/icons';
+
 import TextFieldGenerator from "./TextFieldGenerator";
 
 function CardMaker(props) {
@@ -7,13 +9,22 @@ function CardMaker(props) {
             id={props.id}
             raised='true'
         >
+            <Grid container space={12}>
+                <Grid item xs={11}>
+                    <Typography>Cadastro de Processos</Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <IconButton onClick={props.closeButton}>
+                        <Close />
+                    </IconButton>
+                </Grid>
+            </Grid>
             <Box width='40%'>
                 <TextFieldGenerator
                     id="assunto"
                     label="Assunto"
                     placeholder="Digite o Assunto"
-                    multiline="false"
-                    rows="1"
+                    multiline={false}
                     variant="standard"
                     margin="none"
                     InputProps={{}}
@@ -30,8 +41,7 @@ function CardMaker(props) {
                             id="novosinteressados"
                             label="Novos Interessados"
                             placeholder="Digite os Interessados"
-                            multiline="false"
-                            rows="1"
+                            multiline={false}
                             variant="standard"
                             margin="none"
                             InputProps={{}}
@@ -39,7 +49,10 @@ function CardMaker(props) {
                         />
                     </Grid>
                     <Grid item xs={4}>
-                        <Button>
+                        <Button
+                            variant="contained"
+                            disableElevation
+                        >
                             Adicionar
                     </Button>
                     </Grid>
@@ -50,7 +63,7 @@ function CardMaker(props) {
                     id="descricao"
                     label="Descrição"
                     placeholder="Digite a Descrição"
-                    multiline="true"
+                    multiline={true}
                     rows="5"
                     variant="standard"
                     margin="none"
@@ -58,6 +71,19 @@ function CardMaker(props) {
                     component={Card}
                 />
             </Box>
+            <Grid container spacing={24}>
+                <Grid item xs={10}>
+                </Grid>
+                <Grid item xs={2}>
+                    <Button
+                        aling
+                        variant="contained"
+                        disableElevation
+                    >
+                        Salvar
+                    </Button>
+                </Grid>
+            </Grid>
         </Card>
     );
 };
