@@ -5,20 +5,23 @@ function ListagemItem(props) {
     return (
         <ListItem>
             <Card id={props.id}>
-                <Grid container spacing={12}>
-                    <Grid item xs={3}>
+                <Grid container spacing={10}>
+                    <Grid item xs={2}>
+                        /*Icon*/
+                    </Grid>
+                    <Grid item xs={2}>
                         <Typography>Número</Typography>
                         <Typography>{props.numero}</Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Typography>Assunto</Typography>
                         <Typography>{props.assunto}</Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Typography>Interessado</Typography>
                         <Typography>{props.interessado[0]}</Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Typography>Descrição</Typography>
                         <Typography>{props.descricao}</Typography>
                     </Grid>
