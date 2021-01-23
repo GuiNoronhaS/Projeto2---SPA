@@ -15,6 +15,15 @@ function ProcessManager(props) {
     const setMsgFalse = () => {
         setOpenMsg(false);
     }
+    
+    const [interessado, setInteressado] = useState('');
+    const [interessadoLista, setInteressadoLista] = useState([]);
+
+    const addInteressado = (novoInteressado) => {
+        const lista = interessadoLista;
+        lista.push(novoInteressado);
+        setInteressadoLista(lista);
+    }
 
     return (
         <Card
@@ -43,7 +52,14 @@ function ProcessManager(props) {
                 />
             </Box>
             <Box width='40%'>
-                Interessados
+                <Typography>Interessados</Typography>
+                <Grid container spacing={1}>
+                    {interessadoLista.map(nome => 
+                            <Grid item xs={interessadoLista.length >= 5 ? 4 : 12} key={nome}>
+                                <Typography>{nome}</Typography>
+                            </Grid>)
+                    }
+                </Grid>
                 </Box>
             <Box width='80%'>
                 <Grid container space={10}>
@@ -56,6 +72,7 @@ function ProcessManager(props) {
                             variant="standard"
                             margin="none"
                             InputProps={{}}
+                            onChange={e => setInteressado(e.target.value)}
                             component={Card}
                         />
                     </Grid>
@@ -63,6 +80,7 @@ function ProcessManager(props) {
                         <Button
                             variant="contained"
                             disableElevation
+                            onClick={() => addInteressado(interessado)}
                         >
                             Adicionar
                     </Button>

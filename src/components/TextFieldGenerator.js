@@ -12,8 +12,10 @@ function TextFieldGenerator(props) {
                 margin={props.margin}
                 component={props.component}
                 InputProps={props.InputProps}
+                onChange={props.onChange}
                 fullWidth
-            ></TextField>
+            > 
+            </TextField>
     );
 };
 

@@ -3,8 +3,8 @@ import { ListItem, Card } from "@material-ui/core";
 
 function ListagemItem(props) {
     return (
-        <ListItem>
-            <Card id={props.id}>
+        <ListItem key={props.id}>
+            <Card>
                 <Grid container spacing={10}>
                     <Grid item xs={2}>
                         /*Icon*/
@@ -26,7 +26,6 @@ function ListagemItem(props) {
                         <Typography>{props.descricao}</Typography>
                     </Grid>
                 </Grid>
-
             </Card>
         </ListItem>
 
