@@ -1,11 +1,62 @@
 
-import { makeStyles, Modal, Box, Card, InputAdornment, Typography, Button, IconButton, CircularProgress } from '@material-ui/core';
+import { makeStyles, Modal, Box, Card, InputAdornment, 
+    Typography, Button, IconButton, CircularProgress } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useState } from 'react';
 import ProcessManager from '../components/ProcessManager.js';
 import TextFieldGenerator from '../components/TextFieldGenerator.js'
+import Listagem from '../components/Listagem.js'
 
 const useStyles = makeStyles({
+
+    telaPrincipalBusca: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        position: "absolute",
+        top: '0',
+        right: '0',
+        bottom: '0',
+        left: '0',
+        margin: "auto",
+    },
+    telaPrincipalLista: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+
+    telaListagem: {
+
+    },
+
+    buscaProcesso: {
+        color: "#005b95",
+        margin: 5,
+        padding: 10,
+    },
+    buscaProcessoNoColor: {
+        width: 100,
+        margin: 5,
+        padding: 10,
+    },
+    campoDeBusca: {
+        margin: 15,
+        minWidth: 550,
+    },
+
+    padraoBotoes: {
+        width: 100,
+        height: 45,
+        margin: 5,
+        padding: 10,
+    },
+
+    marginPadding: {
+        margin: 5,
+        padding: 10,
+    },
 
 });
 
@@ -18,9 +69,9 @@ const Main = () => {
     const isLoading = () => {
         setControleTela('Loading')
     }
-    // const mostrarLista = () => {
-    //     setControleTela('MotrarLista')
-    // }
+    const mostrarLista = () => {
+        setControleTela('MotrarLista')
+    }
     const resetarTela = () => {
         setControleTela('Main')
     }
@@ -41,44 +92,42 @@ const Main = () => {
 
     return (
         <>
-            <Box display="flex"
-                alignItems="center"
-                justifyContent="center"
-                flexDirection="column"
-                position="absolute"
-                top='0'
-                right='0'
-                bottom='0'
-                left='0'
-                margin="auto"
-                minWidth={500}>
-                {'Main' === controleTela && <Typography variant="h1">Busca de Processos</Typography>}
-                <Box width={500}>
-                    {'Main' !== controleTela && <Typography variant="body1">Busca de Processos</Typography>}
-                    <TextFieldGenerator
-                        id="pesquisa"
-                        label=""
-                        placeholder="Pesquise uma informação do Processo"
-                        multiline={false}
-                        variant="outlined"
-                        margin="dense"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton onClick={alternarTeste}>
-                                        <Search />
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }}
-                        component={Card}
-                    />
-                    {'Main' !== controleTela && 
+            <Box className={
+                'Main' === controleTela ? classes.telaPrincipalBusca : classes.telaPrincipalLista}>
+                <Typography className={
+                    'Main' === controleTela ? classes.buscaProcesso : classes.buscaProcessoNoColor}
+                    variant={'Main' === controleTela ? "h1" : "body1"}>
+                    Busca de Processos
+                    </Typography>
+                <TextFieldGenerator
+                    className={classes.campoDeBusca}
+                    id="pesquisa"
+                    label=""
+                    placeholder="Pesquise uma informação do Processo"
+                    multiline={false}
+                    variant="outlined"
+                    margin="dense"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={alternarTeste}>
+                                    <Search />
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                    component={Card}
+                />
+                {'Main' === controleTela ?
+                    <Typography
+                        className={classes.marginPadding}
+                    >Voce pode criar um novo processo
+                    <Button onClick={handleModal} >clicando aqui.</Button>
+                    </Typography> :
                     <Button variant="contained"
-                            disableElevation 
-                            onClick={handleModal}>Novo</Button>}
-                </Box>
-                {'Main' === controleTela && <Typography>Voce pode criar um novo processo <Button onClick={handleModal} >clicando aqui.</Button></Typography>}
+                        className={classes.padraoBotoes}
+                        disableElevation
+                        onClick={handleModal}>Novo</Button>}
                 <Modal
                     open={modalState}
                     onClose={handleModal}
@@ -99,7 +148,10 @@ const Main = () => {
                 </Modal>
             </Box>
             <Box>
-                {controleTela === 'Loading' && <CircularProgress />}
+                {controleTela === 'Loading' &&
+                    <CircularProgress className={classes.telaPrincipalBusca} />}
+                {controleTela === 'MotrarLista' &&
+                    <Listagem className={classes.telaListagem} />}
             </Box>
         </>
     )

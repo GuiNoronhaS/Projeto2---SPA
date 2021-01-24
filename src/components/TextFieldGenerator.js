@@ -3,6 +3,7 @@ import {TextField } from '@material-ui/core';
 function TextFieldGenerator(props) {
     return (
             <TextField
+                className={props.className}
                 id={props.id}
                 label={props.label}
                 multiline={props.multiline}
@@ -13,7 +14,6 @@ function TextFieldGenerator(props) {
                 component={props.component}
                 InputProps={props.InputProps}
                 onChange={props.onChange}
-                fullWidth
             > 
             </TextField>
     );
