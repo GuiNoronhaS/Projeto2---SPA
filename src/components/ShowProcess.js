@@ -1,31 +1,49 @@
-import { Button, Grid, Box, Typography, Paper } from "@material-ui/core";
+import { Button, IconButton, Grid, Box, Typography, Paper } from "@material-ui/core";
+import { Close } from '@material-ui/icons';
+import { useState } from "react";
 import PlaceholderNoImg from '../assets/img/PlaceholderNoImg.png';
+import ShowMsg from './ShowMsg.js';
 
 function ShowProcess(props) {
+
+    const [openMsg, setOpenMsg] = useState(false);
+
+    const handleOpen = () => {
+        setOpenMsg(!openMsg);
+    }
+
     return (
-        <Box 
+        <Box
             component={Paper}
-            elevation={5}>
-            <Grid>
-                <Grid>
+            elevation={5}
+            className={props.listagemStyle}>
+            <Box
+                display="flex"
+                flexDirection="row">
+                <Box className={props.startMarginPadding}>
                     <img src={PlaceholderNoImg} alt="Sem Imagem" />
-                </Grid>
-                <Grid>
-                    <Grid>
+                </Box>
+                <Grid container space={12}>
+                    <Grid className={props.marginPadding} xs={5}>
                         <Typography variant="subtitle1">Processo</Typography>
                         <Typography>{props.processo.numero}</Typography>
                     </Grid>
-                    <Grid>
+                    <Grid className={props.marginPadding} xs={5}>
                         <Typography variant="subtitle1">Data</Typography>
                         <Typography>{props.processo.entrada}</Typography>
                     </Grid>
-                    <Grid>
+                    <Grid className={props.marginPadding} xs={5}>
                         <Typography variant="subtitle1">Assunto</Typography>
                         <Typography>{props.processo.assunto}</Typography>
                     </Grid>
                 </Grid>
-            </Grid>
-            <Box>
+                <Box className={props.endMarginPadding}>
+                    <IconButton onClick={props.closeButton}>
+                        <Close />
+                    </IconButton>
+                </Box>
+            </Box>
+            <Box className={props.marginPadding}>
                 <Typography variant="subtitle1">Interessados</Typography>
                 <Grid container spacing={1}>
                     {props.processo.interessados?.map(nome =>
@@ -35,15 +53,25 @@ function ShowProcess(props) {
                     }
                 </Grid>
             </Box>
-            <Box>
+            <Box className={props.marginPadding}>
                 <Typography variant="subtitle1">Descrição</Typography>
-                <Typography>{props.processo.descricao}</Typography>
+                <Typography >{props.processo.descricao}</Typography>
             </Box>
-            <Box>
-                <Button  variant="contained" disableElevation className={props.padraoBotoes}>Deletar</Button>
-                <Button  color="primary" variant="contained" disableElevation className={props.padraoBotoes}>Editar</Button>
+            <Box className={props.endMarginPadding}>
+                <Button variant="contained" disableElevation className={props.padraoBotoes}
+                    onClick={handleOpen}
+                >Deletar</Button>
+                <Button color="primary" variant="contained" disableElevation className={props.padraoBotoes}
+                    onClick={() => props.editarProcess(props.processo.id)}
+                >Editar</Button>
             </Box>
-        </Box>
+            <ShowMsg
+                open={openMsg}
+                reject={handleOpen}
+                confirm={() => props.deleteProcess(props.processo.id)}
+                acao={'Deletar esse Processo'}
+            />
+        </Box >
     );
 }
 

@@ -7,14 +7,20 @@ import { useState } from "react";
 function ProcessManager(props) {
     const [openMsg, setOpenMsg] = useState(false);
 
-    const handleSalvar = () => {
-        setOpenMsg(true);
-    }
-
-    const setMsgFalse = () => {
-        setOpenMsg(false);
+    const setMsg = () => {
+        setOpenMsg(!openMsg);
     }
     
+    const [assunto, setAssunto] = useState('')
+    const [descricao, setDescricao] = useState('')
+
+    const handleAssunto = (valor) => {
+        setAssunto(valor)
+    }
+    const handleDescricao = (valor) => {
+        setDescricao(valor)
+    }
+
     const [interessado, setInteressado] = useState('');
     const [interessadoLista, setInteressadoLista] = useState([]);
 
@@ -38,7 +44,7 @@ function ProcessManager(props) {
                     </IconButton>
                 </Grid>
             </Grid>
-            <Box width='40%'>
+            <Box>
                 <TextField
                     id="assunto"
                     label="Assunto"
@@ -47,11 +53,19 @@ function ProcessManager(props) {
                     variant="standard"
                     margin="none"
                     component={Card}
+                    value= {props.acao === "Editar esse Processo" ? props.processo.assunto : "" }
+                    onChange={handleAssunto}
                 />
             </Box>
-            <Box width='40%'>
+            <Box>
                 <Typography>Interessados</Typography>
                 <Grid container spacing={1}>
+                    {props.acao === "Editar esse Processo" && 
+                        props.processo.interessados?.map(nome => 
+                            <Grid item xs={interessadoLista.length >= 5 ? 4 : 12} key={nome}>
+                                <Typography>{nome}</Typography>
+                            </Grid>)
+                        }
                     {interessadoLista?.map(nome => 
                             <Grid item xs={interessadoLista.length >= 5 ? 4 : 12} key={nome}>
                                 <Typography>{nome}</Typography>
@@ -59,7 +73,7 @@ function ProcessManager(props) {
                     }
                 </Grid>
                 </Box>
-            <Box width='80%'>
+            <Box>
                 <Grid container space={10}>
                     <Grid item xs={6}>
                         <TextField
@@ -84,7 +98,7 @@ function ProcessManager(props) {
                     </Grid>
                 </Grid>
             </Box>
-            <Box width='95%'>
+            <Box>
                 <TextField
                     id="descricao"
                     label="Descrição"
@@ -93,7 +107,9 @@ function ProcessManager(props) {
                     rows="5"
                     variant="standard"
                     margin="none"
+                    value= {props.acao === "Editar esse Processo" ? props.processo.descricao : "" }
                     component={Card}
+                    onChange={handleDescricao}
                 />
             </Box>
             <Grid container spacing={10}>
@@ -103,7 +119,8 @@ function ProcessManager(props) {
                     <Button
                         variant="contained"
                         disableElevation
-                        onClick={handleSalvar}
+                        color="primary"
+                        onClick={setMsg}
                     >
                         Salvar
                     </Button>
@@ -111,8 +128,12 @@ function ProcessManager(props) {
             </Grid>
             <ShowMsg
                 open={openMsg}
-                reject={setMsgFalse}
-                confirm={setMsgFalse}
+                reject={setMsg}
+                confirm={() => props.handleSalvar({
+                    "descricao" : descricao, 
+                    "assunto" : assunto, 
+                    "interessados" : interessadoLista
+                })}
                 acao={props.acao}
             />
         </Card>

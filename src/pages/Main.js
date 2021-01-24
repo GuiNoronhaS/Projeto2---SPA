@@ -2,7 +2,7 @@
 import {
     makeStyles, Modal, Box, Card, InputAdornment,
     Typography, Button, IconButton, CircularProgress,
-    TextField, Paper
+    TextField,
 } from '@material-ui/core';
 import { Search, } from '@material-ui/icons';
 import { useState } from 'react';
@@ -45,6 +45,11 @@ const useStyles = makeStyles({
     BoxLista: {
         display: "flex",
     },
+    listagemStyle: {
+        margin: 5,
+        padding: 10,
+        width: "100%",
+    },
 
     buscaProcesso: {
         color: "#005b95",
@@ -71,6 +76,19 @@ const useStyles = makeStyles({
     marginPadding: {
         margin: 5,
         padding: 10,
+        overflow: "hidden",
+    },
+    startMargingPadding: {
+        textAlign: "start",
+        margin: 5,
+        padding: 10,
+        overflow: "hidden",
+    },
+    endMarginPadding: {
+        textAlign: "end",
+        margin: 5,
+        padding: 10,
+        overflow: "hidden",
     },
 
 });
@@ -85,6 +103,7 @@ const Main = () => {
     const [buscar, setBuscar] = useState('')
     const [lista, setLista] = useState([])
     const [modalState, openModal] = useState(false);
+    const [acao, setAcao] = useState('');
 
     const isLoading = () => {
         setControleTela('Loading')
@@ -94,15 +113,20 @@ const Main = () => {
     }
     const resetarTela = () => {
         setControleTela('Main')
-        setProcessSelected(false)
-        setProcesso({})
+        resetaSelecionado()
         setLista([])
         setBuscar('')
         openModal(false)
     }
 
+    const resetaSelecionado = () => {
+        setProcessSelected(false)
+        setProcesso({})
+    }
+
     const buscarPorAssunto = async () => {
-        isLoading();
+        isLoading()
+        resetaSelecionado()
         const resposta = await control.buscarAssunto(buscar);
         if (resposta.length > 0) {
             setLista(resposta);
@@ -110,6 +134,30 @@ const Main = () => {
         } else {
             resetarTela();
         }
+    }
+
+    const deleteProcess = async (id) => {
+        console.log(id)
+        // const resposta = await control.deletarProcesso(id)
+        // resetarTela()
+    }
+    const editarProcess = () => {
+        setAcao("Editar esse Processo");
+        handleModal()
+
+    }
+    const novoProcess = () => {
+        setAcao("Criar Novo Processo");
+        handleModal()
+    }
+    const handleSalvar = async (objeto) => {
+        if(acao === "Editar esse Processo") {
+            console.log("Não existe URL para editar!!!")
+        } else {
+            const resposta = await control.inserirProcesso(objeto)
+            console.log(resposta)
+        }
+        resetarTela()
     }
 
     const handleModal = () => {
@@ -149,49 +197,65 @@ const Main = () => {
                     <Typography
                         className={classes.marginPadding}
                     >Voce pode criar um novo processo
-                    <Button color="primary" onClick={handleModal} >clicando aqui.</Button>
+                    <Button color="primary" onClick={novoProcess} >clicando aqui.</Button>
                     </Typography> :
                     <Button variant="contained"
                         className={classes.padraoBotoes}
                         disableElevation
-                        onClick={handleModal}>Novo</Button>}
-                <Modal
-                    open={modalState}
-                    onClose={handleModal}
-                    aria-labelledby="Modal para Novos Processos"
-                    aria-describedby="Modal feito para criar novos processos"
-                >
-                    <Box id="modalCard"
-                        marginTop="50px"
-                        margin="auto"
-                        minWidth={740}
-                        height="fit-content"
-                        width="fit-content"
-                    >
-                        <ProcessManager
-                            closeButton={handleModal}
-                            acao={"Criar Novo Processo"} />
-                    </Box>
-                </Modal>
+                        onClick={novoProcess}>Novo</Button>}
             </Box>
             <Box className={classes.BoxLista}>
+                {controleTela === 'Loading' &&
+                    <CircularProgress className={classes.telaPrincipalBusca} />}
                 <Box className={classes.BoxTelaListagem}>
-                    {controleTela === 'Loading' &&
-                        <CircularProgress className={classes.telaPrincipalBusca} />}
                     {controleTela === 'MotrarLista' &&
-                        <Listagem className={classes.BoxTelaListagem}
+                        <Listagem
                             lista={lista}
                             setProcessSelected={setProcessSelected}
                             setProcesso={setProcesso}
+                            processSelected={processSelected}
+                            listagemStyle={classes.listagemStyle}
+                            startMarginPadding={classes.startMarginPadding}
+                            marginPadding={classes.marginPadding}
                         />}
                 </Box>
                 {
                     controleTela === 'MotrarLista' && processSelected &&
                     <Box className={classes.BoxSelecionado}>
-                        <ShowProcess className={classes.Selecionado} processo={processo} padraoBotoes={classes.padraoBotoes} />
+                        <ShowProcess
+                            closeButton={resetaSelecionado}
+                            className={classes.Selecionado}
+                            processo={processo}
+                            deleteProcess={deleteProcess}
+                            editarProcess={editarProcess}
+                            listagemStyle={classes.listagemStyle}
+                            marginPadding={classes.marginPadding}
+                            startMarginPadding={classes.startMarginPadding}
+                            endMarginPadding={classes.endMarginPadding}
+                            padraoBotoes={classes.padraoBotoes} />
                     </Box>
                 }
             </Box>
+            <Modal
+                open={modalState}
+                onClose={handleModal}
+                aria-labelledby="Modal para Novos Processos"
+                aria-describedby="Modal feito para criar novos processos"
+            >
+                <Box id="modalCard"
+                    marginTop="50px"
+                    margin="auto"
+                    minWidth={740}
+                    height="fit-content"
+                    width="fit-content"
+                >
+                    <ProcessManager
+                        closeButton={handleModal}
+                        processo={processo}
+                        handleSalvar={handleSalvar}
+                        acao={acao} />
+                </Box>
+            </Modal>
         </>
     )
 };
