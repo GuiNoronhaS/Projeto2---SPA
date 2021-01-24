@@ -1,42 +1,49 @@
-import { Paper, Grid, Box, Typography } from "@material-ui/core";
+import { Button, Grid, Box, Typography, Paper } from "@material-ui/core";
+import PlaceholderNoImg from '../assets/img/PlaceholderNoImg.png';
 
 function ShowProcess(props) {
     return (
-        <Paper>
+        <Box 
+            component={Paper}
+            elevation={5}>
             <Grid>
                 <Grid>
                     <img src={PlaceholderNoImg} alt="Sem Imagem" />
                 </Grid>
                 <Grid>
                     <Grid>
-                        <Typography>Processo</Typography>
+                        <Typography variant="subtitle1">Processo</Typography>
                         <Typography>{props.processo.numero}</Typography>
                     </Grid>
                     <Grid>
-                        <Typography>Data</Typography>
+                        <Typography variant="subtitle1">Data</Typography>
                         <Typography>{props.processo.entrada}</Typography>
                     </Grid>
                     <Grid>
-                        <Typography>Assunto</Typography>
+                        <Typography variant="subtitle1">Assunto</Typography>
                         <Typography>{props.processo.assunto}</Typography>
                     </Grid>
                 </Grid>
             </Grid>
             <Box>
-                <Typography>Interessados</Typography>
+                <Typography variant="subtitle1">Interessados</Typography>
                 <Grid container spacing={1}>
-                    {props.processo.interessados.map(nome => 
-                            <Grid item xs={interessadoLista.length >= 5 ? 4 : 12} key={nome}>
-                                <Typography>{nome}</Typography>
-                            </Grid>)
+                    {props.processo.interessados?.map(nome =>
+                        <Grid item xs={props.processo.interessados.length >= 5 ? 4 : 12} key={nome}>
+                            <Typography>{nome}</Typography>
+                        </Grid>)
                     }
                 </Grid>
             </Box>
             <Box>
-                <Typography>Descrição</Typography>
+                <Typography variant="subtitle1">Descrição</Typography>
                 <Typography>{props.processo.descricao}</Typography>
             </Box>
-        </Paper>
+            <Box>
+                <Button  variant="contained" disableElevation className={props.padraoBotoes}>Deletar</Button>
+                <Button  color="primary" variant="contained" disableElevation className={props.padraoBotoes}>Editar</Button>
+            </Box>
+        </Box>
     );
 }
 

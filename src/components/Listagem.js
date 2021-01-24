@@ -1,35 +1,44 @@
-import { List } from "@material-ui/core";
-import ListagemItem from "./ListagemItem";
+import { ListItem, Card, Grid, Typography } from "@material-ui/core";
+import PlaceholderNoImg from '../assets/img/PlaceholderNoImg.png';
 
 
 function Listagem(props) {
     return (
-        <List
-            onSelect={props.onSelect}
-        >
-            {props.lista.map(processo => (
-                <ListagemItem
-                    key={processo.id}
-                    numero={processo.numero}
-                    assunto={processo.assunto}
-                    interessados={processo.interessados}
-                    descricao={processo.descricao}
-                >
-                </ListagemItem>
-            ))}
-        </List>
-
+        props.lista?.map(processo => (
+            <ListItem
+                className={props.className}
+                key={processo.id}
+                onClick={() => {
+                    props.setProcessSelected(true)
+                    props.setProcesso(processo)
+                }}
+            >
+                <Card raised>
+                    <Grid container spacing={10}>
+                        <Grid item xs={2}>
+                            <img src={PlaceholderNoImg} alt="Sem Imagem" />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Typography variant="subtitle1">Número</Typography>
+                            <Typography>{processo.numero}</Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Typography variant="subtitle1">Assunto</Typography>
+                            <Typography>{processo.assunto}</Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Typography variant="subtitle1">Interessado</Typography>
+                            <Typography>{processo.interessados[0]}</Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Typography variant="subtitle1">Descrição</Typography>
+                            <Typography>{processo.descricao}</Typography>
+                        </Grid>
+                    </Grid>
+                </Card>
+            </ListItem>
+        ))
     );
 };
 
 export default Listagem
-/*
-{
-    "id": "04c7197f-c0fe-4dab-b27c-d69611eca40f",
-    "numero": "SOFT 2018/00008",
-    "entrada": "07/08/2018",
-    "descricao": "Solicitação de licença-prêmio",
-    "assunto" : "Licença",
-    "interessados": ["Edmilson Cherem"]
-}
-*/
