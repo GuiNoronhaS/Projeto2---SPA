@@ -1,11 +1,15 @@
 
-import { makeStyles, Modal, Box, Card, InputAdornment, 
-    Typography, Button, IconButton, CircularProgress } from '@material-ui/core';
+import {
+    makeStyles, Modal, Box, Card, InputAdornment,
+    Typography, Button, IconButton, CircularProgress
+} from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useState } from 'react';
 import ProcessManager from '../components/ProcessManager.js';
 import TextFieldGenerator from '../components/TextFieldGenerator.js'
+import ShowProcess from '../components/ShowProcess.js'
 import Listagem from '../components/Listagem.js'
+import control from '../service/RequestControler.js'
 
 const useStyles = makeStyles({
 
@@ -28,6 +32,9 @@ const useStyles = makeStyles({
     },
 
     telaListagem: {
+
+    },
+    telaSelecionado: {
 
     },
 
@@ -76,11 +83,28 @@ const Main = () => {
         setControleTela('Main')
     }
 
-    const alternarTeste = () => {
+    const [processSelected, setProcessSelected] = useState(false);
+    const [processo, setProcesso] = useState({})
+
+
+    const [buscar, setBuscar] = useState('')
+    const [lista, setLista] = useState([])
+
+    const buscarPorAssunto = async () => {
         if (controleTela === 'Main') {
-            isLoading()
+            isLoading();
+            console.log("Passei");
+        }
+        if (buscar === '') {
+            resetarTela();
         } else {
-            resetarTela()
+            const resposta = await control.buscarAssunto(buscar);
+            if (resposta.lenght > 0) {
+                setLista(resposta);
+                mostrarLista();
+            } else {
+                resetarTela();
+            }
         }
     }
 
@@ -107,10 +131,11 @@ const Main = () => {
                     multiline={false}
                     variant="outlined"
                     margin="dense"
+                    onChange={e => setBuscar(e.target.value)}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <IconButton onClick={alternarTeste}>
+                                <IconButton onClick={buscarPorAssunto}>
                                     <Search />
                                 </IconButton>
                             </InputAdornment>
@@ -151,7 +176,13 @@ const Main = () => {
                 {controleTela === 'Loading' &&
                     <CircularProgress className={classes.telaPrincipalBusca} />}
                 {controleTela === 'MotrarLista' &&
-                    <Listagem className={classes.telaListagem} />}
+                    <Listagem className={processSelected ? 
+                    classes.telaSelecionado : 
+                    classes.telaListagem} 
+                    lista={lista} 
+                    onSelect={(e) => {console.log(e.target.value)}}/>}
+                {processSelected &&
+                    <ShowProcess className={classes.Selecionado} processo={processo} />}
             </Box>
         </>
     )

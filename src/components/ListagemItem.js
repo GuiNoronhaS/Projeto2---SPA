@@ -1,4 +1,5 @@
-import { ListItem, Card } from "@material-ui/core";
+import { ListItem, Card, Grid, Typography } from "@material-ui/core";
+import PlaceholderNoImg from '../assets/img/PlaceholderNoImg.png'
 
 
 function ListagemItem(props) {
@@ -7,22 +8,22 @@ function ListagemItem(props) {
             <Card>
                 <Grid container spacing={10}>
                     <Grid item xs={2}>
-                        /*Icon*/
+                        <img src={PlaceholderNoImg} alt="Sem Imagem"/>
                     </Grid>
                     <Grid item xs={2}>
-                        <Typography>Número</Typography>
+                        <Typography variant="subtitle1">Número</Typography>
                         <Typography>{props.numero}</Typography>
                     </Grid>
                     <Grid item xs={2}>
-                        <Typography>Assunto</Typography>
+                        <Typography variant="subtitle1">Assunto</Typography>
                         <Typography>{props.assunto}</Typography>
                     </Grid>
                     <Grid item xs={2}>
-                        <Typography>Interessado</Typography>
-                        <Typography>{props.interessado[0]}</Typography>
+                        <Typography variant="subtitle1">Interessado</Typography>
+                        <Typography>{props.interessados[0]}</Typography>
                     </Grid>
                     <Grid item xs={2}>
-                        <Typography>Descrição</Typography>
+                        <Typography variant="subtitle1">Descrição</Typography>
                         <Typography>{props.descricao}</Typography>
                     </Grid>
                 </Grid>

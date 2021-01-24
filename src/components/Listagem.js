@@ -3,17 +3,19 @@ import ListagemItem from "./ListagemItem";
 
 
 function Listagem(props) {
-    return(
-        <List>
+    return (
+        <List
+            onSelect={props.onSelect}
+        >
             {props.lista.map(processo => (
                 <ListagemItem
-                id={processo.id}
-                numero={processo.numero}
-                assunto={processo.assunto}
-                interessado={processo.interessado}
-                descricao={processo.descricao}
+                    key={processo.id}
+                    numero={processo.numero}
+                    assunto={processo.assunto}
+                    interessados={processo.interessados}
+                    descricao={processo.descricao}
                 >
-            </ListagemItem>
+                </ListagemItem>
             ))}
         </List>
 
