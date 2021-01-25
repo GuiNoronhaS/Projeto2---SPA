@@ -5,11 +5,13 @@ Autor/Dev: Guilherme Noronha da Silva
 
 ## Desafio implementador front-end: React, HTML, CSS & JS
 
-Objetivo do projeto consiste em implementar uma *SPA* a partir de um layout pré-estabelecido:
-    - Realizar uma consulta de processos e visualizar o resultado
-    - Visualizar os detalhes de processo
-    - Inserir e excluir um processo
-    - Considerar que os seguintes endpoints estão disponíveis (`docker run -p 3002:3002 gcpasquadproduto/softplan-desafio-frontend`)
+### Objetivo do projeto consiste em implementar uma *SPA* a partir de um layout pré-estabelecido:
+  - Realizar uma consulta de processos e visualizar o resultado
+  - Visualizar os detalhes de processo
+  - Inserir e excluir um processo
+  - Siga os [protótipos](https://www.figma.com/proto/BTa9Vpz4S1XUscURxANvFH5Z/DESAFIO?node-id=19%3A70&scaling=scale-down&redirected=1) e o [guideline](https://www.figma.com/proto/BTa9Vpz4S1XUscURxANvFH5Z/DESAFIO?node-id=27%3A1&scaling=contain&redirected=1) disponibilizados ao máximo
+  - Considerar que os seguintes endpoints estão disponíveis (`docker run -p 3002:3002 gcpasquadproduto/softplan-desafio-frontend`)
+
 ```
 $ curl -i -X POST http://localhost:3002/processo \
         -H 'accept: application/json' \
