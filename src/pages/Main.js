@@ -1,7 +1,7 @@
 
 import {
     makeStyles, Modal, Box, Card, InputAdornment,
-    Typography, Button, IconButton, CircularProgress,
+    Typography, Button, Icon, CircularProgress,
     TextField,
 } from '@material-ui/core';
 import { Search, } from '@material-ui/icons';
@@ -126,7 +126,6 @@ const Main = () => {
     const [controleTela, setControleTela] = useState('Main');
     const [processSelected, setProcessSelected] = useState(false);
     const [processo, setProcesso] = useState({})
-    const [buscar, setBuscar] = useState('')
     const [lista, setLista] = useState([])
     const [modalState, openModal] = useState(false);
     const [acao, setAcao] = useState('');
@@ -141,7 +140,6 @@ const Main = () => {
         setControleTela('Main')
         resetaSelecionado()
         setLista([])
-        setBuscar('')
         openModal(false)
     }
 
@@ -150,7 +148,7 @@ const Main = () => {
         setProcesso({})
     }
 
-    const buscarPorAssunto = async () => {
+    const buscarPorAssunto = async (buscar) => {
         isLoading()
         resetaSelecionado()
         if (buscar === '') {
@@ -213,13 +211,13 @@ const Main = () => {
                     multiline={false}
                     variant="outlined"
                     margin="dense"
-                    onChange={{}}
+                    onChange={e => buscarPorAssunto(e.target.value)}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <IconButton onClick={buscarPorAssunto}>
+                                <Icon>
                                     <Search />
-                                </IconButton>
+                                </Icon>
                             </InputAdornment>
                         )
                     }}
