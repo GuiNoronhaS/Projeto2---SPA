@@ -25,7 +25,6 @@ class RequestControler {
     }
     deletarProcesso(id) {
         return axios.delete(`${BASE_URL}/${id}`)
-            .then(console.log(response))
             .catch(error => {
                 throw error;
             })

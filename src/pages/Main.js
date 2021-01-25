@@ -71,6 +71,9 @@ const useStyles = makeStyles({
         height: 45,
         margin: 5,
         padding: 10,
+        fontFamily: "'Montserrat', sans-serif",
+        fontSize: "14px",
+        fontWeight: "bold",
     },
 
     marginPadding: {
@@ -90,6 +93,23 @@ const useStyles = makeStyles({
         padding: 10,
         overflow: "hidden",
     },
+    textField48:{
+        width:"48%"
+    },
+    textField95:{
+        width:"95%"
+    },
+    textField100:{
+        width:"100%"
+    },
+
+    modalCard: {
+        marginTop: "50px",
+        margin: "auto",
+        minWidth: "660px",
+        height: "fit-content",
+        width: "fit-content",
+    }
 
 });
 
@@ -127,19 +147,25 @@ const Main = () => {
     const buscarPorAssunto = async () => {
         isLoading()
         resetaSelecionado()
-        const resposta = await control.buscarAssunto(buscar);
-        if (resposta.length > 0) {
-            setLista(resposta);
-            mostrarLista();
-        } else {
+        if (buscar === '') {
             resetarTela();
+        } else {
+            const resposta = await control.buscarAssunto(buscar);
+            if (resposta.length > 0) {
+                setLista(resposta);
+                mostrarLista();
+            } else {
+                resetarTela();
+            }
+
         }
     }
 
     const deleteProcess = async (id) => {
         console.log(id)
-        // const resposta = await control.deletarProcesso(id)
-        // resetarTela()
+        const resposta = await control.deletarProcesso(id)
+        console.log(resposta)
+        resetarTela()
     }
     const editarProcess = () => {
         setAcao("Editar esse Processo");
@@ -151,7 +177,7 @@ const Main = () => {
         handleModal()
     }
     const handleSalvar = async (objeto) => {
-        if(acao === "Editar esse Processo") {
+        if (acao === "Editar esse Processo") {
             console.log("Não existe URL para editar!!!")
         } else {
             const resposta = await control.inserirProcesso(objeto)
@@ -242,18 +268,22 @@ const Main = () => {
                 aria-labelledby="Modal para Novos Processos"
                 aria-describedby="Modal feito para criar novos processos"
             >
-                <Box id="modalCard"
-                    marginTop="50px"
-                    margin="auto"
-                    minWidth={740}
-                    height="fit-content"
-                    width="fit-content"
+                <Box className={classes.modalCard}
                 >
                     <ProcessManager
                         closeButton={handleModal}
                         processo={processo}
                         handleSalvar={handleSalvar}
-                        acao={acao} />
+                        acao={acao}
+                        textField48={classes.textField48}
+                        textField95={classes.textField95}
+                        textField100={classes.textField100}
+                        listagemStyle={classes.listagemStyle}
+                        marginPadding={classes.marginPadding}
+                        startMarginPadding={classes.startMarginPadding}
+                        endMarginPadding={classes.endMarginPadding}
+                        padraoBotoes={classes.padraoBotoes}
+                    />
                 </Box>
             </Modal>
         </>
