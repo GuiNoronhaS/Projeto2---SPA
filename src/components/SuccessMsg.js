@@ -11,9 +11,9 @@ function SuccessMsg(props) {
 
             disableBackdropClick
         >
-        <DialogTitle id="tituloDoAlerta"> Sua Requisição foi um Sucesso </DialogTitle>
+        <DialogTitle variant="h2" id="tituloDoAlerta"> Sua Requisição foi um Sucesso </DialogTitle>
         <DialogContent>
-          <DialogContentText id="descricaoDoAlerta">
+          <DialogContentText variant="body1" id="descricaoDoAlerta">
                 A requisição de {props.requisicao} foi um sucesso!
           </DialogContentText>
         </DialogContent>
