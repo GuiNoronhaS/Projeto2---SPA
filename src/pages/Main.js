@@ -9,6 +9,7 @@ import { useState } from 'react';
 import ProcessManager from '../components/ProcessManager.js';
 import ShowProcess from '../components/ShowProcess.js'
 import Listagem from '../components/Listagem.js'
+import SuccessMsg from '../components/SuccessMsg.js';
 import control from '../service/RequestControler.js'
 
 const useStyles = makeStyles({
@@ -129,6 +130,11 @@ const Main = () => {
     const [lista, setLista] = useState([])
     const [modalState, openModal] = useState(false);
     const [acao, setAcao] = useState('');
+    const [openMsg, setOpenMsg] = useState(false);
+
+    const handleOpen = () => {
+        setOpenMsg(!openMsg);
+    }
 
     const isLoading = () => {
         setControleTela('Loading')
@@ -169,6 +175,7 @@ const Main = () => {
         console.log(id)
         const resposta = await control.deletarProcesso(id)
         console.log(resposta)
+        handleOpen()
         resetarTela()
     }
     const editarProcess = () => {
@@ -291,6 +298,11 @@ const Main = () => {
                     />
                 </Box>
             </Modal>
+            <SuccessMsg
+                open={openMsg}
+                close={handleOpen}
+                acao={'Deletar o Processo'}
+            />
         </>
     )
 };
