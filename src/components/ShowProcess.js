@@ -24,17 +24,17 @@ function ShowProcess(props) {
                     <img src={PlaceholderNoImg} alt="Sem Imagem" />
                 </Box>
                 <Grid container space={12}>
-                    <Grid className={props.marginPadding} xs={5}>
+                    <Grid className={props.marginPadding} item xs={5}>
                         <Typography variant="subtitle1">Processo</Typography>
-                        <Typography>{props.processo.numero}</Typography>
+                        <Typography variant="body1">{props.processo.numero}</Typography>
                     </Grid>
-                    <Grid className={props.marginPadding} xs={5}>
+                    <Grid className={props.marginPadding} item xs={5}>
                         <Typography variant="subtitle1">Data</Typography>
-                        <Typography>{props.processo.entrada}</Typography>
+                        <Typography variant="body1">{props.processo.entrada}</Typography>
                     </Grid>
-                    <Grid className={props.marginPadding} xs={5}>
+                    <Grid className={props.marginPadding} item xs={5}>
                         <Typography variant="subtitle1">Assunto</Typography>
-                        <Typography>{props.processo.assunto}</Typography>
+                        <Typography variant="body1">{props.processo.assunto}</Typography>
                     </Grid>
                 </Grid>
                 <Box className={props.endMarginPadding}>
@@ -48,14 +48,14 @@ function ShowProcess(props) {
                 <Grid container spacing={1}>
                     {props.processo.interessados?.map(nome =>
                         <Grid item xs={props.processo.interessados.length >= 5 ? 4 : 12} key={nome}>
-                            <Typography>{nome}</Typography>
+                            <Typography variant="body1">{nome}</Typography>
                         </Grid>)
                     }
                 </Grid>
             </Box>
             <Box className={props.marginPadding}>
                 <Typography variant="subtitle1">Descrição</Typography>
-                <Typography >{props.processo.descricao}</Typography>
+                <Typography variant="body1">{props.processo.descricao}</Typography>
             </Box>
             <Box className={props.endMarginPadding}>
                 <Button variant="contained" disableElevation className={props.padraoBotoes}

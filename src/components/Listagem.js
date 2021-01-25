@@ -25,20 +25,22 @@ function Listagem(props) {
                     <Grid container spacing={10}>
                         <Grid className={props.marginPadding} item xs={props.processSelected !== true ? 2 : 3}>
                             <Typography variant="subtitle1">Número</Typography>
-                            <Typography>{processo.numero}</Typography>
+                            <Typography variant="body1">{processo.numero}</Typography>
                         </Grid>
                         <Grid className={props.marginPadding} item xs={props.processSelected !== true ? 2 : 3}>
                             <Typography variant="subtitle1">Assunto</Typography>
-                            <Typography>{processo.assunto}</Typography>
+                            <Typography className={props.typographyOverflow}
+                                variant="body1">{processo.assunto}</Typography>
                         </Grid>
                         <Grid className={props.marginPadding} item xs={props.processSelected !== true ? 2 : 3}>
                             <Typography variant="subtitle1">Interessado</Typography>
-                            <Typography>{processo.interessados[0]}</Typography>
+                            <Typography variant="body1">{processo.interessados[0]}</Typography>
                         </Grid>
                         {props.processSelected !== true &&
                         <Grid className={props.marginPadding} item xs={2}>
                             <Typography variant="subtitle1">Descrição</Typography>
-                            <Typography>{processo.descricao}</Typography>
+                            <Typography className={props.typographyOverflow}
+                                variant="body1">{processo.descricao}</Typography>
                         </Grid>
                         }
                     </Grid>

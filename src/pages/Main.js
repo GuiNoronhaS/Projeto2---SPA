@@ -44,6 +44,7 @@ const useStyles = makeStyles({
     },
     BoxLista: {
         display: "flex",
+        alignItems: "baseline",
     },
     listagemStyle: {
         margin: 5,
@@ -63,7 +64,7 @@ const useStyles = makeStyles({
     },
     campoDeBusca: {
         margin: 15,
-        minWidth: 550,
+        minWidth: "70vw",
     },
 
     padraoBotoes: {
@@ -102,11 +103,16 @@ const useStyles = makeStyles({
     textField100:{
         width:"100%"
     },
+    typographyOverflow: {
+        whiteSpace: "nowrap", 
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+    },
 
     modalCard: {
         marginTop: "50px",
         margin: "auto",
-        minWidth: "660px",
+        minWidth: "70vw",
         height: "fit-content",
         width: "fit-content",
     }
@@ -207,7 +213,7 @@ const Main = () => {
                     multiline={false}
                     variant="outlined"
                     margin="dense"
-                    onChange={e => setBuscar(e.target.value)}
+                    onChange={{}}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -240,6 +246,7 @@ const Main = () => {
                             setProcessSelected={setProcessSelected}
                             setProcesso={setProcesso}
                             processSelected={processSelected}
+                            typographyOverflow={classes.typographyOverflow}
                             listagemStyle={classes.listagemStyle}
                             startMarginPadding={classes.startMarginPadding}
                             marginPadding={classes.marginPadding}
