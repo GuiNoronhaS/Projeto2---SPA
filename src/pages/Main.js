@@ -301,7 +301,7 @@ const Main = () => {
             <SuccessMsg
                 open={openMsg}
                 close={handleOpen}
-                acao={'Deletar o Processo'}
+                requisicao={'Deletar o Processo'}
             />
         </>
     )

@@ -11,9 +11,9 @@ function ShowMsg(props) {
 
             disableBackdropClick
         >
-        <DialogTitle id="tituloDoAlerta"> Confirme a Ação </DialogTitle>
+        <DialogTitle variant="h2" id="tituloDoAlerta"> Confirme a Ação </DialogTitle>
         <DialogContent>
-          <DialogContentText id="descricaoDoAlerta">
+          <DialogContentText variant="body1" id="descricaoDoAlerta">
                 Voce tem certeza que deseja realizar a ação de {props.acao}, confirme abaixo:
           </DialogContentText>
         </DialogContent>
