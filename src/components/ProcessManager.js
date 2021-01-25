@@ -35,16 +35,14 @@ function ProcessManager(props) {
             raised={true}
             className={props.listagemStyle}
         >
-            <Grid container space={12}>
-                <Grid className={props.marginPadding} item xs={10}>
-                    <Typography variant="h2">Cadastro de Processos</Typography>
-                </Grid>
-                <Grid item xs={1}>
-                    <IconButton onClick={props.closeButton}>
-                        <Close />
-                    </IconButton>
-                </Grid>
-            </Grid>
+            <Box
+                display="flex"
+                justifyContent="space-between">
+                <Typography className={props.marginPadding} variant="h2">Cadastro de Processos</Typography>
+                <IconButton className={props.marginPadding} onClick={props.closeButton}>
+                    <Close />
+                </IconButton>
+            </Box>
             <Box className={props.marginPadding}>
                 <TextField
                     className={props.textField48}

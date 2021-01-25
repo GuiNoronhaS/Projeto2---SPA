@@ -1,7 +1,7 @@
 
 import {
     makeStyles, Modal, Box, Card, InputAdornment,
-    Typography, Button, IconButton, CircularProgress,
+    Typography, Button, Icon, CircularProgress,
     TextField,
 } from '@material-ui/core';
 import { Search, } from '@material-ui/icons';
@@ -44,6 +44,7 @@ const useStyles = makeStyles({
     },
     BoxLista: {
         display: "flex",
+        alignItems: "baseline",
     },
     listagemStyle: {
         margin: 5,
@@ -63,7 +64,7 @@ const useStyles = makeStyles({
     },
     campoDeBusca: {
         margin: 15,
-        minWidth: 550,
+        minWidth: "70vw",
     },
 
     padraoBotoes: {
@@ -102,11 +103,16 @@ const useStyles = makeStyles({
     textField100:{
         width:"100%"
     },
+    typographyOverflow: {
+        whiteSpace: "nowrap", 
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+    },
 
     modalCard: {
         marginTop: "50px",
         margin: "auto",
-        minWidth: "660px",
+        minWidth: "70vw",
         height: "fit-content",
         width: "fit-content",
     }
@@ -120,7 +126,6 @@ const Main = () => {
     const [controleTela, setControleTela] = useState('Main');
     const [processSelected, setProcessSelected] = useState(false);
     const [processo, setProcesso] = useState({})
-    const [buscar, setBuscar] = useState('')
     const [lista, setLista] = useState([])
     const [modalState, openModal] = useState(false);
     const [acao, setAcao] = useState('');
@@ -135,7 +140,6 @@ const Main = () => {
         setControleTela('Main')
         resetaSelecionado()
         setLista([])
-        setBuscar('')
         openModal(false)
     }
 
@@ -144,7 +148,7 @@ const Main = () => {
         setProcesso({})
     }
 
-    const buscarPorAssunto = async () => {
+    const buscarPorAssunto = async (buscar) => {
         isLoading()
         resetaSelecionado()
         if (buscar === '') {
@@ -207,13 +211,13 @@ const Main = () => {
                     multiline={false}
                     variant="outlined"
                     margin="dense"
-                    onChange={e => setBuscar(e.target.value)}
+                    onChange={e => buscarPorAssunto(e.target.value)}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <IconButton onClick={buscarPorAssunto}>
+                                <Icon>
                                     <Search />
-                                </IconButton>
+                                </Icon>
                             </InputAdornment>
                         )
                     }}
@@ -240,6 +244,7 @@ const Main = () => {
                             setProcessSelected={setProcessSelected}
                             setProcesso={setProcesso}
                             processSelected={processSelected}
+                            typographyOverflow={classes.typographyOverflow}
                             listagemStyle={classes.listagemStyle}
                             startMarginPadding={classes.startMarginPadding}
                             marginPadding={classes.marginPadding}
