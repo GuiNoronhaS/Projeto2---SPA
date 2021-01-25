@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiTypography-h1 {
+  /* Headline */
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: normal !important;
+}
+
+.MuiTypography-h2 {
+  /* Title */
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: normal !important;
+}
+
+.MuiTypography-subtitle1 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+.MuiTypography-body1 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: normal !important;
+}
+
+.MuiButton-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 14px !important; 
+  font-weight: bold !important;
+}
